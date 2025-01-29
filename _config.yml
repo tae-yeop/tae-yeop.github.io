@@ -24,7 +24,7 @@ description              : "딥러닝 개발과 연구"
 url                      : "https://tae-yeop.github.io/"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "https://github.com/tae-yeop/tae-yeop.github.io"
-teaser                   : "/assets/images/me.JPG"
+teaser                   : ""
 logo                     : "/assets/images/logo.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
