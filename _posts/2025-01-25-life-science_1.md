@@ -80,7 +80,9 @@ date: 2025-01-25
 - Central Dogma : DNA → RNA → Protein (1 Codon $\to$ 1 Amino acide)
 - 일부 코돈들은 같은 아미노산을 만드는 중복 현상 (이유는 모름)
 - 양 가닥은 수소 결합으로 연결
+- DNA는 4개의 단어로 되어 4개에서 몇개씩 엮어서 새로운 token을 만들기도 한다 : ATC, AGT ,… ⇒ 이를 subword라고 함
 
+![Image](https://github.com/user-attachments/assets/b5dfecad-740c-4646-aca2-d89599b8f245)
 
 ## Protein
 - 20가지 아미노산 ⇒ 3D 구조를 만듬
