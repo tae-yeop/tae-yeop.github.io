@@ -405,3 +405,9 @@ trainer = pl.Trainer(
     use_distributed_sampler=True,
 )
 ```
+
+
+
+
+## 모델 초기화하기
+- 파마리터 초기화하는게 성능에 영향 미침

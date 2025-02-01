@@ -59,6 +59,9 @@ ImportError: libtiff.so.5: cannot open shared object file: No such file or direc
 sudo apt install libtiff5
 apt-get install libxrender1
 conda create -c conda-forge -n myenv rdkit
+
+# 설치 확인
+python -c "from rdkit import Chem; print(Chem.MolToMolBlock(Chem.MolFromSmiles('C1CCC1')))"
 ```
 - rdkit.Chem : 많이 쓰는 함수가 들어 있음
 - rdkit.Chem.AllChem : 좀 더 고급 기능, 덜 쓰는
