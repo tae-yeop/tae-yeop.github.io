@@ -28,6 +28,10 @@ De novo drug design
 - [DrugBank]
     - 신약 개발과 관련된 생리활성 화합물의 구조와 생물학적 활성을 포함하는 데이터베이스이다.
 
+- [Moleculenet](https://moleculenet.org/datasets-1)
+    - 빨리 써볼 수 있는 분자 데이터셋
+    - Pytorch Geometric에서 받을 수 있는 데이터의 출처가 여기인듯
+
 
 ## 라벨
 - 데이터에서 다음 상수값들을 라벨링으로 쓸 수 있다.
@@ -66,7 +70,8 @@ python -c "from rdkit import Chem; print(Chem.MolToMolBlock(Chem.MolFromSmiles('
 - rdkit.Chem : 많이 쓰는 함수가 들어 있음
 - rdkit.Chem.AllChem : 좀 더 고급 기능, 덜 쓰는
 
-
+### Remarks
+- 같은 분자라도 다른 SMILES 표현이 있을 수 있음
 # Task
 
 ## 신약 개발
