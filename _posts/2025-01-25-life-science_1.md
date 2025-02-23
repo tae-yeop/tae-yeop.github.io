@@ -150,6 +150,76 @@ date: 2025-01-25
 
 # 단백질 상호작용
 
+
+단백질-단백질 도킹
+- 단백질간의 결합 예측
+- 신호전달, 활성화에 단백질끼리 결합하는 경우가 많다
+단백질 결합시 주요 상호작용
+- 소수성 상호작용 (Hydrophobic Interaction)
+    - 단백질 주변 물이 있다는 걸 이해해야함
+    - 주변의 물로 인해 물을 싫어하는 것끼리 뭉치게 됨
+    - 마치 기름과 물이 분리되는 것처럼, 소수성 부분이 모이면 단백질 결합이 안정화
+- 전하 상호작용 (Charged Interaction, 쿨롱 상호작용)
+    - (+) 전하와 (-) 전하가 서로 끌어당기는 힘이 작용
+    - 예를 들어, 자석의 N극과 S극이 서로 끌리는 것과 비슷
+- 각 단백질 안에 일어나느 수소 결합은 상호작용에큰 영향이 없다
+
+단백질 복합체 (Protein Complex)
+- 둘 이상의 단백질이 결합하여 형성된 구조
+- 리보솜(Ribosome) → 여러 개의 단백질과 rRNA가 결합한 거대한 복합체로 단백질을 합성하는 역할
+- 신호를 전달하거나, 특정 반응을 활성화 (Activate)
+- 특정한 과정에서 일시적으로 약하게 결합했다가 다시 분리
+- 단백질 복합체 관련 질병은 nhibitor(억제제)**를 디자인해서 결합을 방해하는 전략 : PPI (Protein-Protein Interaction) Inhibitor
+- CDR(complementary determine region) : 3개의 아미노산 체인에 따라 어떤 항원에 바인딩 될지 결정
+
+단백질 복합체의 종류
+(1) Homo-oligomer (동종 올리고머)
+- 동일한 단백질끼리 결합해서 대칭적인 구조
+- 대칭이라는 사실을 이용해서 구조 예측
+    - C-Symmetry: 회전 대칭
+    - D-Symmetry: 회전 + 거울 대칭
+    - Homo-oligomer의 70% 이상이 C-대칭, 20% 이상이 D-대칭
+- 예측 방법: Ab initio 도킹
+    - 이리저리 여러 방향으로 단백질을 붙여보며 가장 좋은 결합(score가 높은 결합)을 선택
+    - score function을 어떻게 디자인할것인가?
+(2) Hetero-oligomer (이종 올리고머)
+- 서로 다른 단백질이 결합하여 복합체를 형성
+- 대칭이 아닐수도 있음
+- 템플릿 기반 예측 방법 : 이미 알려진 좋은 복합체 구조(템플릿)를 찾아서 유사한 구조를 예측
+
+고려할 점
+- 단백질을 강체로 가정하지만 실제 결합하면 변형이 있을 수 있음
+- 모두 고려하기엔 계산량 큼 -> 상대적 위치 (translation, rotation)만 샘플링하여 예측을 수행 (큰 움직임만 고려)
+
+## 도킹 결과 평가 지표
+F_nat: 실제 결합과 비교했을 때 얼마나 비슷한지?
+LRMSD (Ligand RMSD, Root mean sqrt distance): ligand끼리 얼마나 떨어져있는지
+IRMSD (Interface RMSD): 단백질 인터페이스(recptor와 ligand사이 결합 부위)만 비교해서 얼마나 유사한지?
+
+## 정보 기반 도킹
+![Image](https://github.com/user-attachments/assets/1ab87fa2-6c76-4527-a18c-f901fcabefdc)
+- GalaxyHeteromer
+    - Hetero-oligomer는 주형 기반 뿐만 아니라 ab initio에도 활용 가능
+    - 기본적으로 hetero-dimer 구조체를 예측한다
+    - 더 복잡한 구조는 GalaxyHeteromer를 여러번 돌려서 구조를 예측
+    - 두 가지 방법으로 템플릿 탐색
+
+- GalaxyHomomer
+    - Homo-oligomer를 예측하기 위한 프로그램
+    - 주형 기반을 먼저 수행 ⇒ 주형이 있으면 이를 이용
+    - 아니면 Ab initio 도킹으로 예측
+
+- Sequence
+    - 아미노산 염기서열만 이용
+    - 이때 데이터베이스는 DB-Mo, DB-Ho를 사용
+- Structure
+    - 각 subunit의 구조를 이용해서 서치
+    - subunit structure prediction
+        - Strucuture가 인풋으로 오면 이 단계가 필요 없다
+
+## 단백질 구조 시각화
+UCSF CHIMERA
+
 ## 단백질 데이터
 - Conatct map
     - 20개의 sequence의 요소들 내의 i, j번째가 실제로 가까울 있는 것을 표현

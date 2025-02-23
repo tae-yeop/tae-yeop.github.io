@@ -46,6 +46,37 @@ De novo drug design
 - IC50와 Ki값은 분리해서 사용하는게 추천된다
 - IC50가 가장 고품질의 데이터 ← 우선 사용
 - Ki, Kd는 의미가 다르지만 합쳐서 사용하는 경우가 있다 ← 차선책
+- pIC50 : IC50에 log
+$$
+    \text{pIC}_{50} = -\log_{10}\left(\frac{\text{IC}_{50} \, \text{(in nM)}}{10^9}\right) = 9 - \log_{10}(\text{IC}_{50}\, \text{(in nM)})
+$$
+- 값의 범위를 줄여서 범위를 좀 더 균등하게 함
+- nM 나노몰 : 1리터(1L) 당 10⁻⁹ 몰(mol)의 농도
+
+
+## Feature
+- 2D : SMILES, InChI
+- 3D : PDB, SDF
+- 1D : Fingerprint
+- 2D : Fingerprint
+- 3D : Fingerprint
+- 3D : Conformation
+- 3D : Docking
+- 3D : Molecular Dynamics
+- 3D : Quantum Chemistry
+- 3D : Quantum Mechanics
+- 3D : Quantum Mechanics/Molecular Mechanics
+- 3D : Quantum Mechanics/Molecular Mechanics/Generalized Born
+- 3D : Quantum Mechanics/Molecular Mechanics/Poisson-Boltzmann
+- 3D : Quantum Mechanics/Molecular Mechanics/Poisson-Boltzmann/Generalized Born
+
+![Image](https://github.com/user-attachments/assets/fd164982-950c-4dcd-9bd1-8e7cc6c6b74d)
+SMILES의 경우 DFS를 통해 하나씩 표기함
+
+
+
+(1) ECFP
+(2) MACCS
 
 
 
@@ -94,6 +125,14 @@ python -c "from rdkit import Chem; print(Chem.MolToMolBlock(Chem.MolFromSmiles('
 - 화합물의 생물학적 활성을 예측
 - 화합물의 구조적 특성과 그 생물학적 활동 사이의 관계를 규명
 - 새로운 화합물의 효능을 예측하는 데 사용
+
+
+### Classic ML methods for
+바이오 데이터는 갯수가 적어서 전통적인 머신러닝 기법을 하는게 좋을 수 있다
+- Random forest : Decision Tree의 앙상블
+- SVM : Hyperplane을 예측해서 이를 decision boundary로 씀
+- 쓸만한 라이브러리 : sklearn, xgboost, lightgbm, catboost
+
 
 
 # 어떤 AI 방법론이 있을까?
