@@ -80,6 +80,8 @@ $$
 | **Diffusion**      | MLE on reverse process: $ \max_{\theta} \mathbb{E}_{q(x_{0:T})}[\log p_{\theta}(x_{0:T})] $,  $ q(x_{0:T}) $ :확산 과정을 통한 데이터의 조건부 분포 | $ x_T \sim \mathcal{N}(0, I), x_{t-1} = f_{\theta}(x_t, t) $ | $p(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1} \mid x_t) $        | Low     | Very High        |
 
 
+
+
 ## Autoregressive
 
 
@@ -119,3 +121,4 @@ analytic하게 계산할 수 있는 부분이 많고 이는 pdf가 exp함수 그
 
 [Deep Generative Modeling](https://github.com/jmtomczak/intro_dgm)
 - 책에 설명한 모델 구현 코드 레포
+

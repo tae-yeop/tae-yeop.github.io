@@ -84,6 +84,9 @@ date: 2025-01-25
 
 ![Image](https://github.com/user-attachments/assets/b5dfecad-740c-4646-aca2-d89599b8f245)
 
+## RNA
+
+- RNA 중합효소가 DNA 중합효소보다 오류수정 능력이 낮아서 돌연변이가 많이 일어남
 ## Protein
 - 20가지 아미노산 ⇒ 3D 구조를 만듬
 
@@ -109,6 +112,7 @@ date: 2025-01-25
     - 아미노산들이 모여서 정형화된 구조를 만듬
     - 정형화 되지 않은 것은 루프라고 부름
     - alpha helix(알파 나선), beta pleated sheet(베타 병풍) :  자주 목격되는 main local building block
+    - loop : neither alpha-helix nor beta-sheet (연결부나 굴곡부 같은 다양한 형태)
 - 3차구조
     - 2차 구조 (하나의 서열)이 이루는 온전한 접힘 구조
     - 3차원 구조, 이게 흔히 말하는 단백질
@@ -131,6 +135,45 @@ date: 2025-01-25
 - 단백질
     - 폴리 펩타이드 여러개가 배열되서 만들어짐
 
+
+## 결합의 회전
+- 펩타이드 결합(C-N)은 부분적인 이중결합 성격(sp2 혼성)을 띠어서 평면 구조 -> 회전이 거의 불가능
+- 단백질 접힘은 두 개의 회전 가능한 결합각(Dihedral angle)에 의해 결정됨
+
+![Image](https://www.researchgate.net/profile/Mohammad-Chahkandi/publication/260184022/figure/fig2/AS:667834392772613@1536235535241/Protein-backbone-dihedral-angles-and-22.ppm)
+- φ(phi)각
+    - N-C(α)와 C(α)-C 사이의 회전을 나타내는 각도
+- ψ(psi)각
+    - C(α)-C와 C-N(다음 아미노산의 N) 사이의 회전을 나타내는 각도
+- 측쇄(곁사슬)의 회전각(χ각)
+    - 사이드체인에도 특정 부분에서 자유롭게 회전할 수 있는 결합
+- dihedral angle에 의해서 enery state가 변화 ⇒ 구조의 변화 야기
+
+
+Ramachandran Plot 
+- 각 아미노산이 가질 수 있는 φ(phi)각과 ψ(psi)각의 조합을 x축(φ), y축(ψ)으로 놓고 표시
+- 색상이 진한곳일 수록 많은 분포
+- 흰색은 금기되는 부분
+- steric hinderance (입체 장애)로 인해 특정 조합이 선호된다
+- 이를 통해 beta-sheet과 alpha-helix가 대부분임을 표현할 수 있다
+![Image](https://media.geeksforgeeks.org/wp-content/uploads/20221028131103/Theramchandranplot.jpg)
+
+
+단백질 역할
+- 어떤 3D 구조를 가지느냐 ⇒ 역할 결정
+- 구조적 역할
+- 신호 전달
+- 면역 반응
+
+- 드 노보 단백질(de novo protein)
+    - 완전히 새롭게 설계하거나 합성한 단백질
+- 오르판 단백질(orphan protein)
+    - 두 가지 뜻 중 하나
+    - 기능이 알려지지 않은 단백질
+        - 유전체(genome) 해독 등으로 서열이 밝혀졌지만, 아직 기능이나 작용 기전이 분명하지 않은 단백질
+    - 오르판 수용체(orphan receptor)
+        - ‘오르판 GPCR’(orphan G-단백질 결합 수용체)처럼 내인성 리간드(작용 물질)가 아직 밝혀지지 않은 수용체 단백질을 의미
+        - 수용체의 구조나 존재는 알지만, 어떤 물질이 결합해 작용을 일으키는지는 모르는 경우 ‘orphan’
 
 # 세포 주요기관
 리소좀
@@ -191,7 +234,33 @@ date: 2025-01-25
 - 단백질을 강체로 가정하지만 실제 결합하면 변형이 있을 수 있음
 - 모두 고려하기엔 계산량 큼 -> 상대적 위치 (translation, rotation)만 샘플링하여 예측을 수행 (큰 움직임만 고려)
 
+
+## Protein folding Problem
+
+- `Anfinsen 실험(1950)`
+    - denaturation(변성)을 주어도 원본으로 돌아가는 것을 확인한 실험
+    - disulfide를 해도 기능과 구조를 하는 것을 확인
+    - 열이나 urea를 사용했더니 단백질 접힘이 풀리는 것을 확인
+    - 다시 열을 낮추고 용매를 urea에서 물로 교체 ⇒ 원래 효소의 기능을 회복 (구조를 회복)
+    - 가역적인 반응이 가능 하다
+    - 즉, 서열 그자체만으로 에너지만 낮추면 단백질 구조 결정 ⇒ 단밸직 접힘 현상은 물리, 화학에 의해 일어남
+    - 다시 돌아갈 때 원본 구조로 돌아간다 (다른 구조로 가지 않고)
+
+-  `Levinthal paradox(레빈탈의 역설)`
+    - 단백질이 취할 수 있는 모든 구조(접힘 상태)를 ‘무작위로’ 전부 시도 -> 짧은 시간에 접히는 것이 불가능할 정도의 ‘천문학적 시간’이 걸린다는 점에서 생기는 모순
+- 실제론 아주 짧은 시간(μs~ms)에 특정한 3차원 구조로 접힘 (1초에 $10^14$ 접힘 시도)
+- 부분적으로 안정화되는 중간단계(예: 국소적인 알파-나선 또는 베타-병풍 형성)가 생겨나면서 점진적으로 Gibbs free energy가 낮은(안정된) 상태로 수렴하면서 최종 접힘 형태가 나옴
+
+
+- 샤페론 단백질(chaperone protein)
+    - 3차원 구조로 접히도록(폴딩) 돕거나, 이미 접힌 단백질이 변성(denaturation)되어 잘못된 형태로 뭉치는(응집, aggregation) 것을 방지
+    - 최종 복합체의 일부로 남지 않고, 단백질의 올바른 구조 형성을 ‘도와준 뒤’ 다시 떨어져 나옵니다(촉매와 유사한 개념)
 ## 도킹 결과 평가 지표
+도킹하는 후보물질을 실험으로 모두 하기엔 한정
+검증하기 위해 분자 동역학 시물레이션
+80년대 분자역학 : 단백질 구조를 시뮬레이션하게됨
+단백질과 화합물 사이의 랭킹 : 에너지로 표현
+낮은 에너지 => affinity
 F_nat: 실제 결합과 비교했을 때 얼마나 비슷한지?
 LRMSD (Ligand RMSD, Root mean sqrt distance): ligand끼리 얼마나 떨어져있는지
 IRMSD (Interface RMSD): 단백질 인터페이스(recptor와 ligand사이 결합 부위)만 비교해서 얼마나 유사한지?
@@ -225,13 +294,136 @@ UCSF CHIMERA
     - 20개의 sequence의 요소들 내의 i, j번째가 실제로 가까울 있는 것을 표현
 
 
-## DTI(Drug target interaction)
-- 화합물이 표적단백질과 상호작용해서 기능을 제어
-
-## PPI(Protein-Protein Interaction)
-- 단백질의 주변 환경 이해가 필수:
-    - 소수성 상호작용 (Hydrophobic Interaction): 물을 싫어하는 분자끼리 뭉침.
-    - 전하 상호작용 (Charged Interaction): 쿨롱 법칙에 따른 정전기적 인력.
 
 
 
+
+
+# Drugs
+---
+화학의약품
+- 여러 화학 물질을 합성하는 화학 공정을 거쳐서 만듬
+- 제네릭 : 특허 기간이 끝난 의약품을 본떠서 만듬 제품
+
+바이오의약품
+- 생물체 (대장균, 효모, 동물 세포 등) 에서 유래한 원료로 세포 배양, 유전자 재조합같은 생물 공정을 이용
+- 부작용이 적고 효과가 뛰어남
+- 주로 류마티스 관절염, 당뇨병, 암 등 난치성 질환 치료에 사용
+- 바이오 시밀러 (제네릭의 바이오 의약품 버전, 동등생물의약품)
+    - 효능을 동일하지만 완전히 같진 않음
+    - 살아있는 세포 생산 조건, 정제 방법 다름 ⇒ 안전성, 유효성 측면에서 경미한 변동
+    - 바이오신약 개발에 20~30억 달러가 쓰인다면, 바이오시밀러 개발에는 1/10 수준인 1~3억 달러
+    - 의약품의 가격 역시 바이오신약(오리지널 바이오의약품) 보다 50~80% 정도 저렴한 수준
+
+
+
+
+
+
+## 개발 과정
+- 1) 발견 단계
+    - 질병 타겟(제어할 단백질)을 정하고 신약의 후보물질을 도출
+    - Target discovery
+    - Hit screeing : 케미컬을 찾는다 (질병을 제어하는 표적을 알아감)
+    - Lead optimization
+        - 초기 활성을 지니는 히트를 리드로 발전
+        - 해당 표적 단백질을 제어하는데 만족
+- 2) 개발 단계 (Pre-clinininc)
+    - 안전성과 유효성을 확인하는 임상시험을 실시
+    - 임상시험계획(IND)
+        - 임상시험을 실시하기 전에는 반드시 허가 당국으로부터 공식적인 심사와 승인을 받는 절차
+        - 미국은 FDA(미국 식품의약국)가 승인하는 IND(Investigational New Drug)
+        - 유럽은 EMA(유럽 의약품감독국)이 승인하는 CTA(Clinical Trial Application)
+        - 안전성 및 유효성 평가가 완료 ⇒ 의뢰자는 30일 이내 IND 승인 여부를 확인
+
+- 3) 1상, 2상, 3상 임상시험 (Clinincal-trials)
+
+- 4) 신약승인신청(NDA)
+    - 임상시험을 마치고 의약품을 제조 및 출시할 수 있도록 허가 당국으로부터 공식적으로 승인 받는 절차
+    - 미국은 FDA(미국식품의약국)가 승인하는 신약 허가신청(NDA, New Drug Application), 제네릭의약품 허가신청(ANDA: Abbreviated New Drug Application)
+    - 유럽은 EMA(유럽의약품감독국)이 승인하는 판매 허가 신청(MAA, Marketing Authorisation Application)
+    - 분야별 전문가들에 의해 절차가 진행
+
+
+
+## 항암제
+
+### Chemotherapy의 종류
+
+
+|요법|목적|설명|
+|------|---|---|
+|보조 항암화학요법 Adjuvant chemotherapy|Curative(완치) 목적의 Surgery or 방사선 치료 후 재발을 막기 위해서 시행|Breast cancer, Colon cancer(대장암),  Pancreatic cancer(췌장암), 병기에 따라서 하기도 하고 안하기도 한다, 병이 없거나 잔존하고 있을 수 있어서 수행|
+|선행 항암화학요법 Neoadjuvant chemotherapy|Curative 목적의 Surgery or 방사선 치료 전에 tumor size를 줄이고, Early metastasis(초기 전이)를 치료하기 위해 시행|Osteosarcoma (뼈암), Larynx cancer(후두암), 암 크기를 줄이면 수술 범위가 줄어든다, 목의 경우 : 수술 범위를 줄여 목소리를 최대한 살린다, 뼈의 경우 : 일부 뼈만 깍아내도록 한다|
+|고식적 항암화학요법 Palliative chemotherapy|완치 목적이 아닌 Survival의 증가 또는 증상의 완화를 목적으로 시행하는 항암 치료|대부분의 Stage IV cancer, 정말 반응이 좋은 경우 수술까지 갈수도 있다, 대부분 항암제 약개발이 이를 위해 만들어짐|
+|동시 항암 방사선 치료 Concurrent chemo-radiotherapy(CCRT)|항암 치료와 방사선 치료를 함께 투여하여 수술이 불가능한 경우를 가능케 하거나 치료 후 재발율을 낮추거나, 항암 치료를 통해서 방사선 치료 효능을 올리기 위해서| Rectal cancer(직장암) , Head and neck cancer      Glioblastoma, 직장은 항문 바로 위에 있는데 이를 하지 않고 하면 항문 자체를 날려야함|
+
+
+항암제 투여방법
+- Single agent chemotherapy
+    - 약제를 하나만 사용
+- Combination chemotherapy
+    - 조합하는 방법
+    - FOLFOX(대장암에 사용) : 5-FU, Leucovorin, Oxaliplatin
+    - FOLFIRI(대장암에 사용) : 5-FU, Leucovorin, Irinotecan
+    - AC(유방암): Doxorubicin + Cyclophosphamide
+
+
+### 항암제의 종류
+
+
+![Image](https://github.com/user-attachments/assets/60fd6fc1-08c3-4550-88bc-f62fdd09ceb3)
+
+- 화학 함암제 : 암세포 뿐 아니라 전신에 작용 ⇒ 부작용
+- 표적 항암제 : 암을 유발시키는 원인 물질에 대해서만 공격 ⇒ 부작용 줄임
+- 면역 항암제 : 약을 통해 몸의 면역을 활성화 ⇒ 자기 면역세포가 암을 죽이도록 함
+
+![Image](https://github.com/user-attachments/assets/3d1a7e51-ab1d-4861-8bd9-fbbd3d141c7b)
+
+- 1세대 항암제(세포 독성 항암제)
+    - 분열하는 모든 세포에 영향을 끼쳐 분열을 억제하는 약물
+    - 골수 세포 등 빠르게 분열 및 성장하는 정상세포에도 영향을 끼칠 수 있다는 단점이 있고,
+    - 각종 부작용 (메스꺼움과 구토, 설사, 간손상 등)을 유발
+    - 특허가 만료되어 다양한 복제약품이 있으며, 사용 용도가 다양하여 현재도 사용 비중이 높음
+
+
+![Image](https://github.com/user-attachments/assets/7a950251-6e2b-4900-8cb7-abaafd6809eb)
+
+- 알킬화제
+    - DNA에 결합하여 DNA의 구조 변화를 통해 암세포의 성장을 억제
+    - ex.Cisplatin, Carboplatin, Cyclophosphamide
+
+![Image](https://github.com/user-attachments/assets/d2361dbe-926d-4d39-945e-287bacf28cbe)
+- 대사 억제제
+    - DNA 복제를 일으키는 물질과 유사한 구조를 지녀, 본래의 물질이 작용을 못하도록 하여 복제를 억제하는 약물
+    - ex. 5-FU, Methotrexate
+![Image](https://github.com/user-attachments/assets/15654d2c-3eda-4337-a5ba-e673f7648b37)
+
+- 전신 부작용
+    - Alopeica(탈모), 머리 모낭세포는 분열이 빠름
+    - 구내염(Mucositis) : 구강세포, 빨리 분열하는 곳임 ⇒ 입안이 헐게 된다
+    - 혈액세포 감소(hematological toxicity) : 백혈구, 적혈구, 혈소판 등을 만드는 골수세포 역시 분열속도가 빨라 골수억제(myelosuppression)
+
+- 특정 장기·조직에 대한 독성
+    - Nephrotoxicity(신장 독성)
+        - Cisplatin(시스플라틴)
+        -  신장에 부담을 많이 주어 신부전을 일으킬 위험
+        - 수액을 많이 줘서 신장을 최대한 보호한다
+    - Pulmonary toxicity(폐 독성)
+        - 블레오마이신 (Bleomycin)
+        - 폐 섬유화
+    - Cardiac toxicity(심장 독성)
+        - Doxorubicin(독소루비신)
+        - 심근 손상을 유발, 심부전이 위험
+        - 심장을 보호하는 약제(덱스라조산트)랑 같이 투여
+    - Hypersensitivity(과민 반응)
+        - Taxol(‘파클리탁셀’ 계열), Bleomycin
+        - 알레르기성 쇼크나 과민 반응
+
+    - Neurotoxicity(신경 독성)
+        - Vincristine, Vinblastine, Paclitaxel(‘탁솔’)
+
+
+![Image](https://github.com/user-attachment s/assets/1a95acd6-c8fb-4e59-82cc-53e74c1d1930)
+- CTCAE : 각 부작용에 따라서 단계에 따라서 Grade매긴다
+- Critical trial을 할때 CTCAE를 활용한다

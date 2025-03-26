@@ -27,6 +27,14 @@ date: 2025-01-12
 
 # Applications
 - 생성모델도 데이터를 만들어서 뭔가를 할수도 있지만 생성된 모델 자체를 이용하는 경우도 있다
+
+## Text-to-Image
+
+
+- Imagen
+
+
+
 ## Object Detection
 
 - DALL-E for Detection: Language-driven Compositional Image Synthesis for Object Detection, https://arxiv.org/vc/arxiv/papers/2206/2206.09592v2.pdf
