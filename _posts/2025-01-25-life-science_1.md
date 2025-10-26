@@ -1,5 +1,5 @@
 ---
-title:  "Alphafold"
+title:  "신약개발을 위한 생명 과학 기초내용"
 excerpt:  ""
 categories: 
 - Drug discovery
@@ -316,18 +316,57 @@ UCSF CHIMERA
     - 의약품의 가격 역시 바이오신약(오리지널 바이오의약품) 보다 50~80% 정도 저렴한 수준
 
 
+<img src="https://github.com/user-attachments/assets/bc4cb0f5-c32f-41f0-9dcf-bd53e791e96f" width="600" />
+
+합성 신약의 규모가 매우 큼 (화학적 합성 가능한 규모가 $10^{60}$인데 ZINC 데이터에도 $7\times 10^8$가 밖에 없다)
+하나의 물질이 FDA 승인 받을 때까지 3조원이 든다 ⇒ 더 증가하는 상황
 
 
+<img src="https://github.com/user-attachments/assets/cc824619-d86e-48bd-8b5c-995e56faf73d" width="600" />
 
+
+10가지 이상 전문적인 다양한 분야의 시너지가 필요함 ⇒ 신약 개발이 가능한 나라는 15개 정도밖에 안된다
 
 ## 개발 과정
-- 1) 발견 단계
+
+
+
+
+<img src="https://github.com/user-attachments/assets/d7eead5b-1822-48a6-bc8b-9c2d7ef5d907" width="600"/>
+
+(1) Hit Compound(활성물질): 연구 초반에 계기를 마련해줌
+
+(2) Lead(선도 물질)
+- Hit로 부터 generation, hit와의 차이는 특허성이 있는 모핵이냐 아니냐
+- 동물 모형에서 효력을 확보한 시점을 lead compound를 찾았다고 함
+
+(3) Lead optimization
+- Candidate(후보 물질)을 찾음
+- 시장에서 경쟁력있는 수준의 물질로 발전시킴
+
+
+Pharmacology (효능평가)
+
+<img src="https://github.com/user-attachments/assets/6336ee8e-6e66-4b48-bf9a-86201a8f89e2" width="600"/>
+- PK (Pharmacokinetics, 약동학)
+
+
+
+
+
+(1) 발견 단계
     - 질병 타겟(제어할 단백질)을 정하고 신약의 후보물질을 도출
     - Target discovery
-    - Hit screeing : 케미컬을 찾는다 (질병을 제어하는 표적을 알아감)
+   
+
+
+ - Hit screeing : 케미컬을 찾는다 (질병을 제어하는 표적을 알아감)
     - Lead optimization
         - 초기 활성을 지니는 히트를 리드로 발전
         - 해당 표적 단백질을 제어하는데 만족
+
+
+
 - 2) 개발 단계 (Pre-clinininc)
     - 안전성과 유효성을 확인하는 임상시험을 실시
     - 임상시험계획(IND)
@@ -348,6 +387,48 @@ UCSF CHIMERA
 
 ## 항암제
 
+### 개요
+- 동물실험과 lymphoma patient(림프암 환자)에 투여 ⇒ 완치됨
+- 여기서 얻어진 Mustine 물질로 실험 ⇒ 실패
+- Mustagen을 개발하여 FDA에서 처음으로 승인된 항암제
+- 7년동안 2000개 식물 항암제 찾음 → 25년 동안 500,000개 식물에서 항암제를 찾음 : (Sloan & Kettering 펀딩)
+- Chlorambucil (1953), Melphalan (1953), Cyclophosphamide (1957) : 아직도 사용되는 항암제
+
+
+![Image](https://github.com/user-attachments/assets/c6910878-b988-461f-985a-e9533beff54d)
+
+- 활동도 : 연세가 높아도 활동을 잘하는 사람
+- 비용 : 최근에 나온 좋은 약제는 보험이 적용되지 않음
+
+
+![Image](https://github.com/user-attachments/assets/1943ca78-dbc5-426f-ba97-77573fe49c8e)
+
+
+
+- 병기 결정 : Stage (TNM stage)
+- T(Tumor): 종양이 얼마나 큰지, 침습을 얼마나 했는지
+- N(Node): 종양 주변의 림프 노드까지 병 진행 여부
+- M(Metastasis): 전이가 되어있는지 여부
+
+![Image](https://github.com/user-attachments/assets/2fb2bd04-6a61-4fbe-9e1b-bc0201cf61b4)
+
+- 각 암마다 Stage에 따라 Regimen(치료 계획, 치료 요법)을 결정함
+    - 대장암의 경우 얼마나 침습되었는지로 평가한다
+    - 2기 이상인 경우에는 항암치료가 들어간다
+    - 림프절 노드에서 1~3개면 N1, 4개이상이면 N4
+    - Standard Treatment (NCCN guideline)
+        - 항암 치료를 어떤 순서로 할지에 대한 가이드라인이 있다
+        - 국내에는 식약처 가이드라인을 따라야 보험혜택을 받을 수 있다
+    - Clinical study
+        - 충분한 치료가 없는경우 임상시험을 통해
+    - 용량 결정
+        - Body surface area (M2) : 키, 몸무게 ⇒ 투여 용량 결정
+        - Age, performance status ⇒ 연세가 많은지 누워만 있는 환자라면 10% 투여용량 줄인다
+    - 예시
+        - FOLFOX regimen
+        - FOL = Folinic acid (leucovorin)
+        - F = 5-FU (5-fluorouracil)
+        - OX = Oxaliplatin
 ### Chemotherapy의 종류
 
 

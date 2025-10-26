@@ -71,10 +71,10 @@ t.storage() == tuples_of_tensors[2].storage()
 ## Broadcasting
 
 ## 합치거나 나누거나
-- 자주 쓰이는 `torch.cat()` 외에 몇 가지
 
+자주 쓰이는 `torch.cat()` 외에 몇 가지
 
-- `torch.stack()` : cat과 다른 점은 새로운 차원을 만듬, 예를 들어 이미지 3개를 합쳐 배치축에 올리려면 다음과 같이 함
+`torch.stack()` : cat과 다른 점은 새로운 차원을 만듬, 예를 들어 이미지 3개를 합쳐 배치축에 올리려면 다음과 같이 함
 
 ```python
 import torch
@@ -89,12 +89,14 @@ batch = torch.stack([img1, img2, img3])
 print(batch.shape)  # 출력: torch.Size([3, 3, 224, 224])
 ```
 
-- `torch.chunk()` and `torch.split()`
-    - dim 방향으로 텐서를 자르고 shape를 보존해서 튜플에 담아서 리턴
-    - 둘의 차이는 split은 길이를 명시해야는거고 chunk는 덩어리 갯수를 명시함
-    - 정확히 나눠 떨어지지 않아도 나머지를 알아서 리턴해줌
-    - 대표적인 유즈 케이스는 어탠션 매커니즘에서 head 차원으로 분리할 때 사용
-    - 인풋 텐서와 리턴 텐서가 같은 storage를 공유함
+`torch.chunk()` and `torch.split()`
+
+- dim 방향으로 텐서를 자르고 shape를 보존해서 튜플에 담아서 리턴
+- 둘의 차이는 split은 길이를 명시해야는거고 chunk는 덩어리 갯수를 명시함
+- 정확히 나눠 떨어지지 않아도 나머지를 알아서 리턴해줌
+- 대표적인 유즈 케이스는 어탠션 매커니즘에서 head 차원으로 분리할 때 사용
+- 인풋 텐서와 리턴 텐서가 같은 storage를 공유함
+
 ```python
 # 멀티 헤드 쿼리 (32배치, 8 헤드, 64차원)
 query = torch.randn(32, 8 * 64)
@@ -112,7 +114,8 @@ torch.chunk(high[0], chunks=3, dim=2)
 # tensor[1, 3, 1, 128, 128] n=49152 x∈[-4.431, 4.013] μ=-0.002 σ=0.996)
 ```
 
-- `torch.split()` : 
+`torch.split()`
+
 
 ```python
 # [1, 3, 3, 128, 128] => [1, 3, 3, 128, 128]
@@ -125,8 +128,10 @@ torch.split(high[0], 1, dim=2)
 
 ```
 
-- `torch.unbind()`
-    - 비슷한 녀석으로 unbind가 있는데 지정한 dim을 없애서 갈갈이 리턴함
+`torch.unbind()`
+
+
+- 비슷한 녀석으로 unbind가 있는데 지정한 dim을 없애서 갈갈이 리턴함
 
 ```python
 # Split the inputs into smaller chunks
@@ -145,10 +150,11 @@ for sub_input, sub_target in zip(sub_batches, target_batches):
 
 ## 중복하기
 
-- `torch.expand()`
-        - 기본적으로 outer-most(앞쪽)방향으로 dimension을 추가
-        - inner-most로 추가하기 위해선 singleton dimension(dimension이 1인 것)이 반드시 필요함
-        - 따라서 unsqueeze()를 먼저 쓴 뒤에 수행
+`torch.expand()`
+
+- 기본적으로 outer-most(앞쪽)방향으로 dimension을 추가
+- inner-most로 추가하기 위해선 singleton dimension(dimension이 1인 것)이 반드시 필요함
+- 따라서 unsqueeze()를 먼저 쓴 뒤에 수행
 
 ```python
 t1 = torch.randn(4)
@@ -190,7 +196,8 @@ tensor([[-0.5156, -0.5156, -0.5156, -0.5156, -0.5156, -0.5156, -0.5156, -0.5156,
 - 텐서에서 특정 부분을 취사선택할 수 있는 로직이 필요한 경우가 많다.
 
 
-- 인덱스 연산자 `[]`
+인덱스 연산자 `[]`
+
 - `torch.index_select()`나 `torch.select()` 같은 기능을 하지만 좀 더 명시적이라 가독성이 좋음
 - tensor.select(0, index) == tensor[index],  tensor.select(2, index) == tensor[:,:,index]
 
@@ -233,9 +240,10 @@ tensor([[ 0,  2,  4],
 
 ```
 
+`torch.gather(input, dim, index, *, out=None) → Tensor`
 
-- `torch.gather(input, dim, index, *, out=None) → Tensor`
 - 인덱싱 혹은 룩업 용도
+- `index`의 경우 `input`가 broadcastable한 shape는 가져야함
 
 ```python
 # actual use case
@@ -386,14 +394,15 @@ $$
 $$
 
 
-- [SyncBN](https://hangzhang.org/PyTorch-Encoding/tutorials/syncbn.html)
-        - DDP 상황에선 디바이스마다 다른 미니배치가 forward로 감
-        - 이 때문에 mini batch statistics가 차이가 남 -> 맞출 필요성 -> 대신 속도 저하
-        - 일반적인 clasification, detection의 경우 working batch size(= BatchSize/nGPU)가 크기 때문에 syncBN을 할 필요가 없다
-        - 써야 하는 상황 : working batch size 작음 (GPU 당 2~4개) ⇒ Sync 필요
-        - 클래스로 쓰거나 아니면 바꿔주는 유틸리티 함수를 쓰도록 함
-        - torch.nn.SyncBatchNorm는 train mode일 때에만 sync가 일어남 ⇒ eval mode라면 sync가 꺼짐
-        - 파이토치 라이트닝에는 sync_batch로 바꾸는 옵션이 있는데 [Fabric](https://github.com/Lightning-AI/pytorch-lightning/issues/13749)에는 없는 것처럼 보임
+
+[SyncBN](https://hangzhang.org/PyTorch-Encoding/tutorials/syncbn.html)
+- DDP 상황에선 디바이스마다 다른 미니배치가 forward로 감
+- 이 때문에 mini batch statistics가 차이가 남 -> 맞출 필요성 -> 대신 속도 저하
+- 일반적인 clasification, detection의 경우 working batch size(= BatchSize/nGPU)가 크기 때문에 syncBN을 할 필요가 없다
+- 써야 하는 상황 : working batch size 작음 (GPU 당 2~4개) ⇒ Sync 필요
+- 클래스로 쓰거나 아니면 바꿔주는 유틸리티 함수를 쓰도록 함
+- torch.nn.SyncBatchNorm는 train mode일 때에만 sync가 일어남 ⇒ eval mode라면 sync가 꺼짐
+- 파이토치 라이트닝에는 sync_batch로 바꾸는 옵션이 있는데 [Fabric](https://github.com/Lightning-AI/pytorch-lightning/issues/13749)에는 없는 것처럼 보임
 
 ```python
 trainer = pl.Trainer(
@@ -406,8 +415,32 @@ trainer = pl.Trainer(
 )
 ```
 
+### LayerNorm
+BatchNorm은 데이터 크기가 너무 크면 ⇒  배치 수를 줄여야 함 ⇒ 배치가 작으면 잘되지 않는다. 그리고 레이어마다 activation의 running mean, variance를 계산해야함
 
+Sequence modeling의 경우 length에 따라 달라지기 때문에 적용하기 힘듬 ⇒ zero padding으로 채우는 경우 데이터마다 statitics가 달라질 것임
 
+<img src="https://github.com/user-attachments/assets/341f0ccf-aa90-4c4f-9887-ae574937a701" width="50%">
+
+따라서 배치안에 모든걸 고려해서 statistics를 만들지 않고 배치 내의 데이터 하나마다 개별적으로 Normalization
+
+데이터 종류에 따라 조금 다르지만 최대한 일정한 shape로 구성되는 차원들 집합에 대해서 Normalziation
+
+예를 들어 이미지 [B, C, H, W] :  [C, H, W]에 대해 Normalization을 수행 ⇒ 모든 이미지 데이터의 [C, H, W]는 일정
+
+<img src="https://github.com/user-attachments/assets/c670f2c3-f078-44e1-a6dd-9c6ce6f7be0f" width="50%">
+
+Sequence 데이터  [B, T, D] : [D]에 대해서 수행 ⇒ T는 데이터마다 달라질 수 있어도 D는 고정
+
+<img src="https://github.com/user-attachments/assets/7a02f933-4bab-4fe2-8aa4-1304ce963e31" width="50%">
+
+```python
+# input이 [B, C, H, W]인 경우
+nn.LayerNorm([C, H, W])
+
+# input이 [B, L, embedding_dim]인 경우 => 임베딩 축으로 정규화
+nn.LayerNorm(embedding_dim)
+```
 
 ## 모델 초기화하기
 - 파마리터 초기화하는게 성능에 영향 미침
@@ -420,3 +453,4 @@ MSE, L1, Huber loss
 - 너무 큰 그라디언트
 - 아웃라이어에 민감하다
 - 아웃라이어데 덜 민감한 L1, Hubber를 쓰도록 함
+

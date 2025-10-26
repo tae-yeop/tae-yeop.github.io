@@ -50,6 +50,7 @@
 - 현재 시점 $t$에선 $t-1$을 포함한 이전 정보는 사용 가능, 반면에 $t+1$의 정보는 이용 X
 - 만약에 $t+1$의 정보가 어떻게든 흘러들었다면 `Data Leakage`
 - 만약 $t$시점에 $t+1$에 대한 실제 true 값이 아닌 예측값이 있다면 이것도 정보이기 때문에 이는 이용 가능 (왜냐면 $t$시점에서 얻을 수 있는 정보이므로)
+- Feature 중에 미래 정보를 받아서 계산한 Feature가 있는지 확인할것
 
 ## Dataset Split
 
@@ -60,7 +61,7 @@ https://inria.github.io/scikit-learn-mooc/python_scripts/cross_validation_time.h
 
 ## Normalization
 
-- (1) 표준화 전체 split이 먼저 선행되어야함
+- (1) 표준화 전에 split이 먼저 선행되어야함
 - (2) Trainset의 통계량 계산
 - (3) Trainset을 Normalization
 - (4) Trainset의 통계량을 이용해서 val, testset도 Normalization
@@ -68,6 +69,25 @@ https://inria.github.io/scikit-learn-mooc/python_scripts/cross_validation_time.h
 - 이러 순서를 지키는 이유 : 만약에 전체 데이터셋를 Normalization을 한다면 Val, testset의 정보가 train 쪽으로 흘러들어간다. 
 - 그런데 이 방법은 Non-stationary한 time series일 경우 train set의 normalization statistics를 val, testset에 적용한다면 모델 성능이 급격하게 떨어진다. 
 - 주기성이 있는 Time series의 경우 어디로 나눌지 고려 해야한다. 
+
+
+### Rolling z-score
+
+### 차분법
+- 먼저 Difference를 취한 뒤에 Normalization을 한다.
+- Stationary하게 만들고 Normalization
+- Fractional Differencing
+- 단점 : series의 long run memory를 잃을 수 있다?
+
+
+### Log return
+- Stationary하면서 normal dist를 닮기 때문에 더 좋음
+- return은 outlier때문에 t-distribution
+
+### Decomposition
+- Decomposition으로 trend, seasonality, residual로 나누고 residual로 모델을 fitting
+- 단점 : 대부분 decompostion 방법들이 seasonality가 해당 time window에서 constant라고 가정함
+
 
 ## Augmentation
 - 학습을 위
@@ -78,3 +98,51 @@ https://inria.github.io/scikit-learn-mooc/python_scripts/cross_validation_time.h
 # 모델링
 
 ## 클래식 모델
+
+
+## 딥러닝 방식
+
+### Normalizaton Layers
+DAIN
+https://github.com/passalis/dain
+
+RDAIN
+- 데이터가 어떤 분포에서 왔는지 파악하여 적절한 normalization을 적용하도록 학습하는 RDAIN
+- highly-volatile + non-stationary finanical time series에 DL을 적용하는게 쉽지 않다
+- 데이터가 어떤 분포에서 왔는지 파악하여 적절한 normalization을 적용하도록 학습하는 RDAIN
+- 후속 모델에 즉각 인풋을 안성맞춤으로 만들어서 학습에 큰 도움이 되도록 한다
+- 단순히 static normalization을 학습하는게 아니라 가장 적절한 normalization parameter를 찾도록 학습되는 것 ⇒ Distribution shift에 대해 robust
+- FI-2010 dataset 실험
+    - 가장 최근 15개의 feauture를 보고 direction을 예측 (up, stationary, down)
+    - anchored evalutation setup
+        - 첫 째날을 학습에 쓰고 다음 날을 tesing에 사용
+        - 이후 첫째날 + 둘째날을 학습에 쓰고 셋째 날을 testing에 사용
+
+![Image](https://github.com/user-attachments/assets/caece8cd-4a22-4abf-b73a-16bb07773bb6)
+그림 상의 가로 축에 dimension, 세로 축이 
+$$
+\gamma(x) = \text{sigm}(\mathbf{W}_{\gamma}\mathbf{s}_{\gamma}(x) + \mathbf{b}_{\gamma}) \in \Bbb{R}^{d} 
+$$
+
+### Pooling Layers
+[DTW-Pool](https://github.com/donalee/DTW-Pool)
+
+
+### Time Embedding
+
+Time2Vec
+- https://ojus1.github.io/posts/time2vec/
+- https://github.com/ojus1/Time2Vec-PyTorch
+- https://github.com/cerlymarco/MEDIUM_NoteBook/blob/master/Time2Vec/Time2Vec.ipynb
+
+
+TS2Vec
+
+
+### Representation
+DAPC
+- https://github.com/JunwenBai/DAPC
+
+
+
+### LLM 이용

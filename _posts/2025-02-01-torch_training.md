@@ -82,6 +82,7 @@ RuntimeError: each element in list of batch should be of equal size
      - 메모리를 절반만 사용하여 throughput과 메모리 사용 효율을 높힌다.
      - CPU, GPU 모두에 torch.bloat16을 사용할 수 있다.
      - 기존의 fp16 학습은 안정화를 위해서 GradScaler()같은 추가적인 코드가 들어갔는데 bfloat16은 그런 추가 코드가 필요없다. 
+     - bf16은 fp16과 달리 exponent 범위가 fp32와 동일함 -> underflow가 쉽게 발생하지 않음
 
 # 분산 학습 
 - 핵심은 여러개의 장비를 통한 병렬처리를 하는 것
@@ -92,6 +93,12 @@ RuntimeError: each element in list of batch should be of equal size
 ## Data Parallelism
 
 
+## FSDP(Fully Sharded Data Parallel)
+파라미터를 완전히 쪼개서 병렬 학습한다. DDP가 같은 모델 복사본을 만들고 Gradient All Reduce를 하게 된다. 
+FSDP에선 rank 별로 파라미터를 부분적으로 저장 (Shard)하고 Forward/Backward 시점에서 필요한 Shard끼리
+모아 연산을 수행한다. 메모리 효율적이다.
+
+`summon_full_params` : rank 별로 sharded state_dict를 들고 있음. 전체 param을 임시로 구성한 뒤에 model.state_dict()를 호출하게끔 함. optimizer도 마찬가지
 
 ## Optimizer
 - list of dict로 줘도 된다.
